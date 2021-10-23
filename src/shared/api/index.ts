@@ -6,7 +6,9 @@ type FetchRatesResponse = {
 export async function fetchRates(
   currencyCode: CurrencyCode
 ): Promise<FetchRatesResponse> {
-  const response = await fetch(`/api/rates?base=${currencyCode}`)
+  const response = await fetch(
+    `https://revolut-home-task.khokhlachev.com/api/rates?base=${currencyCode}`
+  )
   return response.json()
 }
 
