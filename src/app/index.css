@@ -1,0 +1,13 @@
+@import "~antd/dist/antd.css";
+
+html {
+  font-size: 10px;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1.6rem;
+  font-family: "Inter", "Helvetica\\ Neue", "sans-serif";
+}
