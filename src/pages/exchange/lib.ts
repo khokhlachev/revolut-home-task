@@ -7,25 +7,22 @@ export function useRatesPolling(currencyCode: CurrencyCode) {
 
   useEffect(() => {
     const action = () => dispatch(ratesSlice.fetchRatesAsync(currencyCode))
-    let promise: ReturnType<typeof action>
-    let interval: ReturnType<typeof setInterval>
+    const startPolling = () =>
+      setInterval(() => {
+        promise = action()
+      }, 10 * 1000)
+    const stopPolling = () => clearInterval(interval)
 
-    function handleVisibilityChange() {
-      if (document.hidden) {
-        clearInterval(interval)
-      } else {
-        interval = setInterval(() => {
-          promise = action()
-        }, 10 * 1000)
-      }
-    }
+    let promise = action()
+    let interval = startPolling()
+
+    const handleVisibilityChange = () =>
+      document.hidden ? stopPolling() : (interval = startPolling())
 
     document.addEventListener("visibilitychange", handleVisibilityChange)
 
-    promise = action()
-
     return () => {
-      clearInterval(interval)
+      stopPolling()
       promise.abort()
     }
   }, [currencyCode, dispatch])
