@@ -13,6 +13,14 @@ type ExchangeRateApiResponse = {
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  res.setHeader("Access-Control-Allow-Origin", "*")
+  res.setHeader("Access-Control-Allow-Methods", "OPTIONS,GET")
+
+  if (req.method === "OPTIONS") {
+    res.status(200).end()
+    return
+  }
+
   const { base } = req.query
 
   if (!base) {
