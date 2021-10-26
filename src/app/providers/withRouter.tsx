@@ -5,7 +5,7 @@ import { x } from "@xstyled/styled-components"
 export const withRouter = (component: () => ReactNode) => () =>
   (
     <BrowserRouter>
-      <Suspense fallback={Fallback}>{component()}</Suspense>
+      <Suspense fallback={<Fallback />}>{component()}</Suspense>
     </BrowserRouter>
   )
 
