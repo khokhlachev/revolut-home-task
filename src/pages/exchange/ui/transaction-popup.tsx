@@ -20,6 +20,7 @@ function TransactionPopup({
   return (
     <>
       <x.div
+        data-testid="transaction-popup-backdrop"
         position="absolute"
         left="0"
         top="0"

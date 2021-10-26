@@ -51,7 +51,9 @@ export function ExchangeWidget({
         <x.div fontWeight="medium" fontSize="1.2rem" color="gray-500">
           {"Balance: "}
           {balance !== undefined && (
-            <FormatedCurrency code={currency} amount={balance} round />
+            <span data-testid="balance">
+              <FormatedCurrency code={currency} amount={balance} round />
+            </span>
           )}
         </x.div>
       </x.div>

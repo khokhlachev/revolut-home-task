@@ -23,8 +23,12 @@ beforeAll(() => server.listen())
 afterEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
-function getValueNumber(input: HTMLInputElement) {
-  return parseFloat(input.value.replace(/[^0-9.]/, "") || "0")
+function parseAmount(value: string | null) {
+  return parseFloat(value?.replace(/[^0-9.]/g, "") || "0")
+}
+
+function parseAmountFromInput(input: HTMLInputElement) {
+  return parseAmount(input.value)
 }
 
 describe("ExchangePage", () => {
@@ -59,9 +63,7 @@ describe("ExchangePage", () => {
       expect(getByTestId("exchange-rate")).toBeInTheDocument()
     )
 
-    const rate = getValueNumber({
-      value: getByTestId("exchange-rate").textContent,
-    } as any)
+    const rate = parseAmount(getByTestId("exchange-rate").textContent as string)
     const [firstWidget, secondWidget] = getAllByTestId("exchange-widget")
     const firstInput = within(firstWidget).getByPlaceholderText(
       "0"
@@ -70,17 +72,17 @@ describe("ExchangePage", () => {
       "0"
     ) as HTMLInputElement
 
-    expect(getValueNumber(secondInput)).toEqual(0)
+    expect(parseAmountFromInput(secondInput)).toEqual(0)
 
     userEvent.type(firstInput, "100.115")
 
     expect(firstInput.value).toEqual("–100.11")
     expect(secondInput.value).toEqual(
-      `+${(getValueNumber(firstInput) * rate).toFixed(2)}`
+      `+${(parseAmountFromInput(firstInput) * rate).toFixed(2)}`
     )
 
     expect(secondInput.value).toEqual(
-      `+${(getValueNumber(firstInput) * rate).toFixed(2)}`
+      `+${(parseAmountFromInput(firstInput) * rate).toFixed(2)}`
     )
   })
 
@@ -98,15 +100,21 @@ describe("ExchangePage", () => {
       expect(getByTestId("exchange-rate")).toBeInTheDocument()
     )
 
-    const firstInput = within(
-      getAllByTestId("exchange-widget")[0]
-    ).getByPlaceholderText(0)
-    userEvent.type(firstInput, "100")
+    const [firstWidget] = getAllByTestId("exchange-widget")
+
+    const firstInput = within(firstWidget).getByPlaceholderText(0)
+    const firstBalance = within(firstWidget).getByTestId("balance")
+    console.log("firstBalance", firstBalance.textContent)
+
+    const firstAmountBefore = parseAmount(firstBalance.textContent as string)
+    console.log("firstAmountBefore", firstAmountBefore)
+
+    const AMOUNT_TO_SELL = 100
+    userEvent.type(firstInput, `${AMOUNT_TO_SELL}`)
 
     const button = getByTestId("transaction-button")
 
     expect(button).not.toBeDisabled()
-
     userEvent.click(button)
 
     await waitFor(() =>
@@ -115,5 +123,12 @@ describe("ExchangePage", () => {
     await waitFor(() =>
       expect(getByTestId("transaction-success-message")).toBeInTheDocument()
     )
+
+    const backdrop = getByTestId("transaction-popup-backdrop")
+    userEvent.click(backdrop)
+    expect(backdrop).not.toBeInTheDocument()
+
+    const firstAmountAfter = parseAmount(firstBalance.textContent as string)
+    expect(firstAmountAfter).toEqual(firstAmountBefore - AMOUNT_TO_SELL)
   })
 })
