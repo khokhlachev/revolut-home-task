@@ -1,10 +1,14 @@
-import { DefaultTheme } from "styled-components"
-import { defaultTheme } from "@xstyled/styled-components"
+import { DefaultTheme, createGlobalStyle } from "styled-components"
+import { defaultTheme, th } from "@xstyled/styled-components"
 
 const range = (length: number) => Array.from(Array(length).keys())
 
 export const theme: DefaultTheme = {
   ...defaultTheme,
+  fonts: {
+    ...defaultTheme.fonts,
+    sans: `Inter, "Helvetica Neue", sans-serif`,
+  },
   screens: {
     _: 0,
     md: 768,
@@ -32,3 +36,22 @@ export const theme: DefaultTheme = {
     "fade-in": "fade-in .3s ease-in-out forwards",
   },
 }
+
+export const GlobalStyle = createGlobalStyle`
+  @font-face {
+    font-family: "Inter";
+    src: url("/fonts/inter-latin-var.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  body {
+    font-family: ${th.font("sans")};
+  }
+
+  @keyframes fade-in {
+    from {opacity: 0}
+    to {opacity: 1}
+  }
+`
