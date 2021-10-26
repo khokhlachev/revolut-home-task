@@ -5,7 +5,7 @@ import { commitTransaction } from "@/shared/api"
 import { TransactionProps } from "./types"
 
 export interface UserState {
-  balances: { [k in CurrencyCode]?: number }
+  balances: { [k in CurrencyCode]: number }
 }
 
 const initialState: UserState = {
@@ -40,8 +40,8 @@ export const walletSlice = createSlice({
       ) => {
         const { from, to, amountFrom, amountTo } = payload
 
-        state.balances[from]! -= amountFrom
-        state.balances[to] = (state.balances[to] || 0) + amountTo
+        state.balances[from] -= amountFrom
+        state.balances[to] += amountTo
       }
     )
   },
