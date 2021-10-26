@@ -1,5 +1,5 @@
 import { RootState } from "@/app/store"
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { BALANCES } from "./config"
 import { commitTransaction } from "@/shared/api"
 import { TransactionProps } from "./types"
@@ -25,11 +25,25 @@ export const walletSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(commitTransactionAsync.fulfilled, (state, { payload }) => {
-      const { from, to, amountFrom, amountTo } = payload
-      state.balances[from]! -= amountFrom as number
-      state.balances[to] = (state.balances[to] || 0) + (amountTo as number)
-    })
+    builder.addCase(
+      commitTransactionAsync.fulfilled,
+      (
+        state,
+        {
+          payload,
+        }: PayloadAction<{
+          from: CurrencyCode
+          to: CurrencyCode
+          amountFrom: number
+          amountTo: number
+        }>
+      ) => {
+        const { from, to, amountFrom, amountTo } = payload
+
+        state.balances[from]! -= amountFrom
+        state.balances[to] = (state.balances[to] || 0) + amountTo
+      }
+    )
   },
 })
 

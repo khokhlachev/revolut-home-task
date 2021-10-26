@@ -5,7 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "4.7.0",
     "@craco/craco": "^6.3.0",
-    "@reduxjs/toolkit": "^1.5.1",
+    "@reduxjs/toolkit": "^1.6.2",
     "@xstyled/styled-components": "3.1.0",
     "antd": "^4.16.13",
     "compose-function": "^3.0.3",
@@ -44,16 +44,16 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
     "@types/compose-function": "^0.0.30",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/node-fetch": "2.5.12",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "@types/react-redux": "^7.1.7",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.11.5",
+    "@types/node-fetch": "3.0.2",
+    "@types/react": "^17.0.32",
+    "@types/react-dom": "^17.0.10",
+    "@types/react-redux": "^7.1.20",
     "@types/react-router": "^5.1.17",
     "@types/react-router-dom": "^5.3.1",
     "@types/styled-components": "5.1.15",
@@ -62,7 +62,8 @@
     "babel-plugin-inline-react-svg": "^2.0.1",
     "babel-plugin-module-resolver": "^4.1.0",
     "babel-plugin-styled-components": "1.13.3",
-    "jest-styled-components": "7.0.5"
+    "jest-styled-components": "7.0.5",
+    "msw": "0.35.0"
   },
   "jest": {
     "transformIgnorePatterns": [
