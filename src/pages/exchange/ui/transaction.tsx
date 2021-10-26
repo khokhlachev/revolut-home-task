@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react"
-import { ExchangeButton } from "./transaction-button"
+import { TransactionButton } from "./transaction-button"
 import { walletSlice, TransactionProps } from "@/entities/wallet"
 import { useAppDispatch } from "@/app/hooks"
 import type { ExchangeAction } from "../types"
@@ -43,7 +43,7 @@ export function ExchangeTransaction({
 
   return (
     <div>
-      <ExchangeButton
+      <TransactionButton
         action={action}
         from={transaction.from}
         to={transaction.to}
