@@ -29,9 +29,11 @@ function ExchangePage() {
     ratesSlice.selectRateByCode(state, altCurrency)
   )
 
+  // run useEffect only on mount
   useEffect(() => {
     dispatch(ratesSlice.fetchRatesAsync(baseCurrency))
-  }, [dispatch])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   useRatesPolling(baseCurrency)
 
   useEffect(() => {
