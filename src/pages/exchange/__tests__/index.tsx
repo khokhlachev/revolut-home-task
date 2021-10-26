@@ -104,10 +104,8 @@ describe("ExchangePage", () => {
 
     const firstInput = within(firstWidget).getByPlaceholderText(0)
     const firstBalance = within(firstWidget).getByTestId("balance")
-    console.log("firstBalance", firstBalance.textContent)
 
     const firstAmountBefore = parseAmount(firstBalance.textContent as string)
-    console.log("firstAmountBefore", firstAmountBefore)
 
     const AMOUNT_TO_SELL = 100
     userEvent.type(firstInput, `${AMOUNT_TO_SELL}`)
