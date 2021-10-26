@@ -6,8 +6,8 @@ const ExchangePage = lazy(() => import("./exchange"))
 export const Routing = () => {
   return (
     <Switch>
-      <Route exact path="/" component={ExchangePage} />
-      <Redirect to="/" />
+      <Route exact path="/exchange" component={ExchangePage} />
+      <Redirect to="/exchange" />
     </Switch>
   )
 }
