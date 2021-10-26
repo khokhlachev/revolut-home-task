@@ -30,7 +30,11 @@ export function ExchangeRate({ currency }: Props) {
             <FormatedCurrency code={baseCurrency} amount={1} />
             {` = `}
           </span>
-          <span>
+          <span
+            data-testid="exchange-rate"
+            data-currency={currency}
+            data-rate={rate}
+          >
             <FormatedCurrency code={currency} amount={rate} />
           </span>
         </>

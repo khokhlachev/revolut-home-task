@@ -13,6 +13,7 @@ export function ToggleActionButton({
 }: ToggleActionButtonProps) {
   return (
     <x.button
+      data-testid="toggle-exchange-action"
       position="relative"
       zIndex="5"
       display="block"

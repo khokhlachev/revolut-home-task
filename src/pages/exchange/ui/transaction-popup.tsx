@@ -8,7 +8,7 @@ import FormatedCurrency from "@/shared/ui/formatted-currency"
 import type { TransactionProps } from "@/entities/wallet"
 
 type TransactionPopupProps = {
-  state: string
+  state: "loading" | "success" | "failed" | "idle"
   transaction: TransactionProps
   onClose?: () => void
 }
@@ -56,10 +56,18 @@ function TransactionPopup({
         </x.div>
 
         <x.div pt="2" textAlign="center">
-          {state === "loading" && <span>Processing your transaction</span>}
-          {state === "failed" && <span>An error occured. Try again later</span>}
+          {state === "loading" && (
+            <span data-testid="transaction-loading-message">
+              Processing your transaction
+            </span>
+          )}
+          {state === "failed" && (
+            <span data-testid="transaction-error-message">
+              An error occured. Try again later
+            </span>
+          )}
           {state === "success" && (
-            <span>
+            <span data-testid="transaction-success-message">
               <strong>You exchanged</strong>
               <br />
               <FormatedCurrency

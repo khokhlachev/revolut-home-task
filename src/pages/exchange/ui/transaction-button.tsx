@@ -7,19 +7,29 @@ const getBuyMessage = (from: CurrencyCode, to: CurrencyCode) =>
 const getSellMessage = (from: CurrencyCode, to: CurrencyCode) =>
   `Sell ${from} for ${to}`
 
-type ExchangeButtonProps = Omit<ComponentPropsWithoutRef<"button">, "type"> & {
+type TransactionButtonProps = Omit<
+  ComponentPropsWithoutRef<"button">,
+  "type"
+> & {
   action: ExchangeAction
   from: CurrencyCode
   to: CurrencyCode
 }
-export function ExchangeButton({
+export function TransactionButton({
   action,
   from,
   to,
   ...rest
-}: ExchangeButtonProps) {
+}: TransactionButtonProps) {
   return (
-    <Button {...rest} type="primary" block size="large" shape="round">
+    <Button
+      {...rest}
+      type="primary"
+      block
+      size="large"
+      shape="round"
+      data-testid="transaction-button"
+    >
       {action === "buy" ? getBuyMessage(from, to) : getSellMessage(from, to)}
     </Button>
   )

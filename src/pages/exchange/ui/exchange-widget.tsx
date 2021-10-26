@@ -29,6 +29,7 @@ export function ExchangeWidget({
 }: ExchangeWidgetProps) {
   return (
     <x.div
+      data-testid="exchange-widget"
       display="flex"
       justifyContent="space-between"
       w="100%"

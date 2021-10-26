@@ -29,7 +29,11 @@ function ExchangePage() {
     ratesSlice.selectRateByCode(state, altCurrency)
   )
 
+  useEffect(() => {
+    dispatch(ratesSlice.fetchRatesAsync(baseCurrency))
+  }, [dispatch])
   useRatesPolling(baseCurrency)
+
   useEffect(() => {
     setBaseAmount(null)
     setAltAmount(null)
@@ -95,7 +99,12 @@ function ExchangePage() {
 
   return (
     <PhoneMockup>
-      <x.div display="flex" flexDirection="column" h="100%">
+      <x.div
+        data-testid="exchange-page"
+        display="flex"
+        flexDirection="column"
+        h="100%"
+      >
         <ExhangeTitle currency={baseCurrency} action={exchangeAction} />
         <ExchangeRate currency={altCurrency} />
 
@@ -152,8 +161,14 @@ function ExchangePage() {
 type ExhangeTitleProps = { currency: CurrencyCode; action: ExchangeAction }
 function ExhangeTitle({ currency, action }: ExhangeTitleProps) {
   return (
-    <x.h2 fontSize="3rem" fontWeight="medium" mb="2" lineHeight="1.35">
-      {action === "sell" ? "Sell" : "Buy"} {currency}
+    <x.h2
+      fontSize="3rem"
+      fontWeight="medium"
+      mb="2"
+      lineHeight="1.35"
+      data-testid="exchange-action"
+    >
+      {`${action === "sell" ? "Sell" : "Buy"} ${currency}`}
     </x.h2>
   )
 }
