@@ -32,7 +32,9 @@ export const renderWithProviders = (
     wrapper: Wrapper,
   })
   const finishLoading = () =>
-    waitFor(() => expect(utils.queryByText("test loading...")).toBeNull())
+    waitFor(() =>
+      expect(utils.queryByText("test loading...")).not.toBeInTheDocument()
+    )
 
   return {
     finishLoading,
